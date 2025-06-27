@@ -23,10 +23,10 @@ void SegueLinha() {
   else if ((s4 == 0) && (s3 == 0) && (s2 == 1) && (s1 == 0) && (s0 == 0)) {
     Serial.println("Linha reta");
     MoverFrente();
-
   }
-
-  else if ((s4 == 1) && (s3 == 1) && (s2 == 1) && (s1 == 1) && (s0 == 1))
-    Serial.println("Correção Direita");
-    Voltar();
 }
+
+//   else if ((s4 == 1) && (s3 == 1) && (s2 == 1) && (s1 == 1) && (s0 == 1))
+//     Serial.println("Voltando");
+//     Voltar();
+// }
