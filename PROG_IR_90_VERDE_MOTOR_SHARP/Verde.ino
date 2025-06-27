@@ -24,14 +24,14 @@
   //=========================================================//
 
     // --- VERDE Direita Detectado ---
-      if ((mediaD <= 46) && (mediaD >= 40)) {
+      if ((mediaD <= 36) && (mediaD >= 32)) {
       Serial.println("Verde Direita detectado");
       CurvaDir90();
       return true;
     }
 
     // --- VERDE Esquerda Detectado ---
-    if ((mediaE <= 48) && (mediaE >= 40)) {
+    if ((mediaE <= 38) && (mediaE >= 32)) {
       Serial.println("Verde Esquerda detectado");
       CurvaEsq90();
       return true;
