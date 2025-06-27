@@ -69,11 +69,11 @@ void CurvaEsq90(){
   analogWrite(PWM_B, vel_B + 150);
 }
 
-void Voltar(){
-  MotorRe();
-  analogWrite(PWM_A, vel_A  );//LINHA RETA
-  analogWrite(PWM_B, vel_B  );//LINHA RETA
-}
+// void Voltar(){
+//   MotorRe();
+//   analogWrite(PWM_A, vel_A  );//LINHA RETA
+//   analogWrite(PWM_B, vel_B  );//LINHA RETA
+// }
 
 
 
