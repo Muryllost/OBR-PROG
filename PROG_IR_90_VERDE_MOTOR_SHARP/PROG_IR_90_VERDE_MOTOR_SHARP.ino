@@ -1,18 +1,17 @@
 // #include <SharpIR.h>
 #define PINO_SHARP A0         // Pino analógico onde está ligado o Sharp
 
-
-const int led2 = A1;
-const int led3 = A2;
-const int led4 = A3;
+// === Variáveis de controle de estado de manobra ===
+bool executandoManobra = false;
+unsigned long tempoFinalManobra = 0;
 
 // Motores
 int IN1 = 21, IN2 = 20, IN3 = 19, IN4 = 18;
 int PWM_A = 2; //Velocidade do motor A
 int PWM_B = 3; //Velocidade do motor B
 
-int vel_A = 100;
-int vel_B = 100;
+int vel_A = 110;
+int vel_B = 90;
 
 // Sensores IR (ordem da esquerda para a direita)
 int IR[] = {22, 24, 26, 28, 30};
@@ -26,16 +25,6 @@ int VD[] = {44,46,48,50};
 int outD = 52;  
 
 void setup() {
-  // Configura os pinos como saída
-  pinMode(led2, OUTPUT);
-  pinMode(led3, OUTPUT);
-  pinMode(led4, OUTPUT);
-
-  // Acende os LEDs (nível alto = ligado)
-  analogWrite(led2, HIGH);
-  analogWrite(led3, HIGH);
-  analogWrite(led4, HIGH);
-
   pinMode(PINO_SHARP, INPUT); 
 
   // === Pinos dos Sensores IR ===
@@ -74,19 +63,32 @@ void setup() {
   Serial.begin(9600);
 }
 
-void loop() {
 
-  // if (VerificaObstaculo()){
-  // // } 
-  if (Verde()){
-    return;
-  } 
-  if (Curva90()) {
-    return;
-  } 
-  else {
-    SegueLinha();
+void loop() {
+  // Verifica se está executando manobra
+  if (executandoManobra) {
+    if (millis() >= tempoFinalManobra) {
+      executandoManobra = false;
+      PararMotor(); // finaliza manobra com parada
+    }
+    return; // enquanto executa manobra, não faz mais nada
   }
 
-// Verde();
+  // PRIORIDADE MÁXIMA: Obstáculo
+  if (VerificaObstaculo()) {
+    return;
+  }
+
+  // // PRIORIDADE ALTA: Verde
+  // if (Verde()) {
+  //   return;
+  // }
+
+  // // PRIORIDADE MÉDIA: Curva de 90°
+  // if (Curva90()) {
+  //   return;
+  // }
+
+  // // AÇÃO PADRÃO: Segue linha
+  // SegueLinha();
 }

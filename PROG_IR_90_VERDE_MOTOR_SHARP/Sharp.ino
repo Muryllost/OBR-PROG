@@ -1,10 +1,10 @@
 // === VARIÁVEIS DE CONTROLE DE MOVIMENTO ===
-const unsigned long tempoCurvaF1 = 1500;
+const unsigned long tempoCurvaF1 = 700;
 const unsigned long tempoCurvaF2 = 1000;
 const unsigned long tempoCurvaD1 = 500;
-const unsigned long tempoCurvaD2 = 400;
+const unsigned long tempoCurvaD2 = 500;
 const unsigned long tempoCurvaE1 = 500;
-const unsigned long tempoCurvaE2 = 300;
+const unsigned long tempoCurvaE2 = 500;
 
 // === Função genérica de movimento com temporização ===
 void executarMovimento(void (*acao)(), unsigned long duracao) {
@@ -39,20 +39,20 @@ bool VerificaObstaculo() {
     PararMotor();
 
     // Desvio com movimentos temporizados
-    executarMovimento(CurvaDir90, tempoCurvaD1);
-    delay(500);
+    executarMovimento(CurvaDir90Sharp, tempoCurvaD1);
+    delay(100);
     executarMovimento(MoverFrente, tempoCurvaF1);
     delay(500);
-    executarMovimento(CurvaEsq90, tempoCurvaE1);
+    executarMovimento(CurvaEsq90Sharp, tempoCurvaE1);
     delay(100);
     executarMovimento(MoverFrente, tempoCurvaF2);
     delay(500);
-    executarMovimento(CurvaEsq90, tempoCurvaE2);
+    executarMovimento(CurvaEsq90Sharp, tempoCurvaE2);
     delay(100);
     executarMovimento(MoverFrente, tempoCurvaF1);
     delay(500);
-    executarMovimento(CurvaDir90, tempoCurvaD2);
-    delay(500);
+    executarMovimento(CurvaDir90Sharp, tempoCurvaD2);
+    delay(100);
     PararMotor();
 
     return true;

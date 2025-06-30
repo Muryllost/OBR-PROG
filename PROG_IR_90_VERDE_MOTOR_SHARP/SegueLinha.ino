@@ -24,9 +24,10 @@ void SegueLinha() {
     Serial.println("Linha reta");
     MoverFrente();
   }
-}
 
-//   else if ((s4 == 1) && (s3 == 1) && (s2 == 1) && (s1 == 1) && (s0 == 1))
-//     Serial.println("Voltando");
-//     Voltar();
-// }
+  // else if ((s4 == 1) && (s3 == 1) && (s2 == 1) && (s1 == 1) && (s0 == 1)) {
+  //   Serial.println("Voltando");
+  //   Voltar();
+  // }
+
+}
