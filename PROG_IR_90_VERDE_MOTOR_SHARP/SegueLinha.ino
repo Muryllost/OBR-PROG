@@ -1,4 +1,4 @@
-void SegueLinha() {
+void SegueLinha() {More actions
   bool s0 = digitalRead(IR[0]);
   bool s1 = digitalRead(IR[1]);
   bool s2 = digitalRead(IR[2]);
@@ -24,10 +24,15 @@ void SegueLinha() {
     Serial.println("Linha reta");
     MoverFrente();
   }
+}
 
-  else if ((s4 == 1) && (s3 == 1) && (s2 == 1) && (s1 == 1) && (s0 == 1)) {
-    Serial.println("Voltando");
-    Voltar();
-  }
+//   else if ((s4 == 1) && (s3 == 1) && (s2 == 1) && (s1 == 1) && (s0 == 1))
+//     Serial.println("Voltando");
+//     Voltar();
+// }
+  // else if ((s4 == 1) && (s3 == 1) && (s2 == 1) && (s1 == 1) && (s0 == 1)) {
+  //   Serial.println("Voltando");
+  //   Voltar();
+  // }
 
 }
