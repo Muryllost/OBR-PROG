@@ -1,3 +1,5 @@
+
+
 // Motor A = Esquerdo (IN1, IN2, PWM_A)
 // Motor B = Direito  (IN3, IN4, PWM_B)
 
@@ -6,7 +8,6 @@ void Motor(){
   digitalWrite(IN2, LOW);
   digitalWrite(IN3, HIGH);
   digitalWrite(IN4, LOW);
-
 }
 
 void PararMotor(){  
@@ -38,6 +39,7 @@ void MotorEsq90(){
   digitalWrite(IN3, HIGH);
   digitalWrite(IN4, LOW);
 }
+
 //=========================================================//
 void MoverFrente() {//LINHA RETA
   Motor();  
@@ -77,40 +79,40 @@ void CurvaEsq90(){
 void CurvaDir90Ved(){
   MotorDir90();
   analogWrite(PWM_A, vel_A + 120);
-  analogWrite(PWM_B, vel_B + 140);
+  analogWrite(PWM_B, vel_B + 120);
 
-    executandoManobra = true;
+  executandoManobra = true;
   tempoFinalManobra = millis() + 700;
 }
+
 // --- VERDE Esquerda ---
 void CurvaEsq90Ved(){
   MotorEsq90();
-  analogWrite(PWM_A, vel_A + 140);
+  analogWrite(PWM_A, vel_A + 120);
   analogWrite(PWM_B, vel_B + 120);
 
-    executandoManobra = true;
+  executandoManobra = true;
   tempoFinalManobra = millis() + 1200; // duração real da curva
 }
+
+//=========================================================//
+// --- Curva Direita 90 (Sharp) ---
+void CurvaDir90Sharp(){
+  MotorDir90();
+  analogWrite(PWM_A, vel_A + 120);
+  analogWrite(PWM_B, vel_B + 120);
+}
+
+// --- Curva Esquerda 90 (Sharp) ---
+void CurvaEsq90Sharp(){
+  MotorEsq90();
+  analogWrite(PWM_A, vel_A + 120);
+  analogWrite(PWM_B, vel_B + 120);
+}
+
 //=========================================================//
 void Voltar(){
   MotorRe();
-  analogWrite(PWM_A, vel_A  );//LINHA RETA
-  analogWrite(PWM_B, vel_B  );//LINHA RETA
+  analogWrite(PWM_A, vel_A);
+  analogWrite(PWM_B, vel_B);
 }
-//=========================================================//
-
-// --- Curva Direita 90 ---
-void CurvaDir90Sharp(){
-  MotorDir90();
-  analogWrite(PWM_A, vel_A + 140);
-  analogWrite(PWM_B, vel_B + 160);
-}
-
-// --- Curvs Esquerda 90 ---
-void CurvaEsq90Sharp(){
-  MotorEsq90();
-  analogWrite(PWM_A, vel_A + 140);
-  analogWrite(PWM_B, vel_B + 160);
-}
-//=========================================================//
-
