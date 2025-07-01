@@ -1,9 +1,10 @@
-#include <SharpIR.h>
+// #include <SharpIR.h>
+#define PINO_SHARP A0         // Pino analógico onde está ligado o Sharp
 
-#define ir A0
-#define model 1080
-SharpIR SharpIR(ir, model);
 
+const int led2 = A1;
+const int led3 = A2;
+const int led4 = A3;
 // === Variáveis de controle de estado de manobra ===
 bool executandoManobra = false;
 unsigned long tempoFinalManobra = 0;
@@ -14,20 +15,27 @@ int PWM_A = 2; //Velocidade do motor A
 int PWM_B = 3; //Velocidade do motor B
 
 int vel_A = 100;
-int vel_B = 120;
+int vel_B = 100;
+int vel_A = 110;
+int vel_B = 90;
 
 // Sensores IR (ordem da esquerda para a direita)
 int IR[] = {22, 24, 26, 28, 30};
-
-// === SENSOR DE COR ESQUERDO (TCS3200) === PONTA AZUL
-int VE[] = {34,36,38,40};
-int outE = 42;
-
-// === SENSOR DE COR DIREITO (TCS3200) === PONTA AMARELA
-int VD[] = {44,46,48,50};
+@@ -26,67 +25,70 @@
 int outD = 52;  
 
 void setup() {
+  // Configura os pinos como saída
+  pinMode(led2, OUTPUT);
+  pinMode(led3, OUTPUT);
+  pinMode(led4, OUTPUT);
+
+  // Acende os LEDs (nível alto = ligado)
+  analogWrite(led2, HIGH);
+  analogWrite(led3, HIGH);
+  analogWrite(led4, HIGH);
+
+  pinMode(PINO_SHARP, INPUT); 
 
   // === Pinos dos Sensores IR ===
   for (int i = 0; i <= 5; i++) {
@@ -76,21 +84,31 @@ void loop() {
     return; // enquanto executa manobra, não faz mais nada
   }
 
-  // // PRIORIDADE MÁXIMA: Obstáculo
-  // if (Distancia()) {
+  // if (VerificaObstaculo()){
+  // // } 
+  if (Verde()){
+  // PRIORIDADE MÁXIMA: Obstáculo
+  if (VerificaObstaculo()) {
+    return;
+  } 
+  if (Curva90()) {
+    return;
+  } 
+  else {
+    SegueLinha();
+  }
+
+// Verde();
+  // // PRIORIDADE ALTA: Verde
+  // if (Verde()) {
   //   return;
   // }
 
-  // PRIORIDADE ALTA: Verde
-  if (Verde()) {
-    return;
-  }
+  // // PRIORIDADE MÉDIA: Curva de 90°
+  // if (Curva90()) {
+  //   return;
+  // }
 
-  // PRIORIDADE MÉDIA: Curva de 90°
-  if (Curva90()) {
-    return;
-  }
-
-  // AÇÃO PADRÃO: Segue linha
-  SegueLinha();
+  // // AÇÃO PADRÃO: Segue linha
+  // SegueLinha();
 }
