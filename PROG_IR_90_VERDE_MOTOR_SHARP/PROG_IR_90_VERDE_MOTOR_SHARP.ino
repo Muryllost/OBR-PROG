@@ -1,5 +1,8 @@
-// #include <SharpIR.h>
-#define PINO_SHARP A0         // Pino analógico onde está ligado o Sharp
+#include <SharpIR.h>
+
+#define ir A0
+#define model 1080
+SharpIR SharpIR(ir, model);
 
 // === Variáveis de controle de estado de manobra ===
 bool executandoManobra = false;
@@ -10,8 +13,8 @@ int IN1 = 21, IN2 = 20, IN3 = 19, IN4 = 18;
 int PWM_A = 2; //Velocidade do motor A
 int PWM_B = 3; //Velocidade do motor B
 
-int vel_A = 110;
-int vel_B = 90;
+int vel_A = 100;
+int vel_B = 120;
 
 // Sensores IR (ordem da esquerda para a direita)
 int IR[] = {22, 24, 26, 28, 30};
@@ -25,7 +28,6 @@ int VD[] = {44,46,48,50};
 int outD = 52;  
 
 void setup() {
-  pinMode(PINO_SHARP, INPUT); 
 
   // === Pinos dos Sensores IR ===
   for (int i = 0; i <= 5; i++) {
@@ -74,21 +76,21 @@ void loop() {
     return; // enquanto executa manobra, não faz mais nada
   }
 
-  // PRIORIDADE MÁXIMA: Obstáculo
-  if (VerificaObstaculo()) {
+  // // PRIORIDADE MÁXIMA: Obstáculo
+  // if (Distancia()) {
+  //   return;
+  // }
+
+  // PRIORIDADE ALTA: Verde
+  if (Verde()) {
     return;
   }
 
-  // // PRIORIDADE ALTA: Verde
-  // if (Verde()) {
-  //   return;
-  // }
+  // PRIORIDADE MÉDIA: Curva de 90°
+  if (Curva90()) {
+    return;
+  }
 
-  // // PRIORIDADE MÉDIA: Curva de 90°
-  // if (Curva90()) {
-  //   return;
-  // }
-
-  // // AÇÃO PADRÃO: Segue linha
-  // SegueLinha();
+  // AÇÃO PADRÃO: Segue linha
+  SegueLinha();
 }
